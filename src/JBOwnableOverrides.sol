@@ -8,7 +8,7 @@ import {IJBProjects} from "@bananapus/core/src/interfaces/IJBProjects.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
 import {IJBOwnable} from "./interfaces/IJBOwnable.sol";
-import {JBOwner} from "./struct/JBOwner.sol";
+import {JBOwner} from "./structs/JBOwner.sol";
 
 /// @notice An abstract base for `JBOwnable`, which restricts functions so they can only be called by a Juicebox
 /// project's owner or a specific owner address. The owner can give access permission to other addresses with
