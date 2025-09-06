@@ -5,12 +5,12 @@ import "forge-std/Test.sol";
 import {MockOwnable} from "./mocks/MockOwnable.sol";
 import {JBOwnableOverrides} from "../src/JBOwnableOverrides.sol";
 
-import {JBPermissions} from "@bananapus/core/src/JBPermissions.sol";
-import {JBPermissioned} from "@bananapus/core/src/abstract/JBPermissioned.sol";
-import {JBProjects} from "@bananapus/core/src/JBProjects.sol";
-import {IJBPermissions} from "@bananapus/core/src/interfaces/IJBPermissions.sol";
-import {JBPermissionsData} from "@bananapus/core/src/structs/JBPermissionsData.sol";
-import {IJBProjects} from "@bananapus/core/src/interfaces/IJBProjects.sol";
+import {JBPermissions} from "@bananapus/core-v5/src/JBPermissions.sol";
+import {JBPermissioned} from "@bananapus/core-v5/src/abstract/JBPermissioned.sol";
+import {JBProjects} from "@bananapus/core-v5/src/JBProjects.sol";
+import {IJBPermissions} from "@bananapus/core-v5/src/interfaces/IJBPermissions.sol";
+import {JBPermissionsData} from "@bananapus/core-v5/src/structs/JBPermissionsData.sol";
+import {IJBProjects} from "@bananapus/core-v5/src/interfaces/IJBProjects.sol";
 
 contract OwnableTest is Test {
     IJBProjects PROJECTS;

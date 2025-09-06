@@ -2,9 +2,9 @@
 // Juicebox variation on OpenZeppelin Ownable
 pragma solidity ^0.8.23;
 
-import {JBPermissioned} from "@bananapus/core/src/abstract/JBPermissioned.sol";
-import {IJBPermissions} from "@bananapus/core/src/interfaces/IJBPermissions.sol";
-import {IJBProjects} from "@bananapus/core/src/interfaces/IJBProjects.sol";
+import {JBPermissioned} from "@bananapus/core-v5/src/abstract/JBPermissioned.sol";
+import {IJBPermissions} from "@bananapus/core-v5/src/interfaces/IJBPermissions.sol";
+import {IJBProjects} from "@bananapus/core-v5/src/interfaces/IJBProjects.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 
 import {IJBOwnable} from "./interfaces/IJBOwnable.sol";
