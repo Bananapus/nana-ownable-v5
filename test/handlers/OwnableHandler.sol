@@ -8,11 +8,11 @@ import {StdUtils} from "forge-std/StdUtils.sol";
 import {console} from "forge-std/console.sol";
 
 import {MockOwnable, JBOwnableOverrides} from "../mocks/MockOwnable.sol";
-import {IJBPermissions} from "@bananapus/core/src/interfaces/IJBPermissions.sol";
-import {JBPermissions} from "@bananapus/core/src/JBPermissions.sol";
-import {JBPermissionsData} from "@bananapus/core/src/structs/JBPermissionsData.sol";
-import {IJBProjects} from "@bananapus/core/src/interfaces/IJBProjects.sol";
-import {JBProjects} from "@bananapus/core/src/JBProjects.sol";
+import {IJBPermissions} from "@bananapus/core-v5/src/interfaces/IJBPermissions.sol";
+import {JBPermissions} from "@bananapus/core-v5/src/JBPermissions.sol";
+import {JBPermissionsData} from "@bananapus/core-v5/src/structs/JBPermissionsData.sol";
+import {IJBProjects} from "@bananapus/core-v5/src/interfaces/IJBProjects.sol";
+import {JBProjects} from "@bananapus/core-v5/src/JBProjects.sol";
 
 contract OwnableHandler is CommonBase, StdCheats, StdUtils {
     IJBProjects public immutable PROJECTS;
@@ -33,9 +33,9 @@ contract OwnableHandler is CommonBase, StdCheats, StdUtils {
         address deployer = vm.addr(1);
         address initialOwner = vm.addr(2);
         // Deploy the permissions contract.j
-        PERMISSIONS = new JBPermissions();
+        PERMISSIONS = new JBPermissions(address(0));
         // Deploy the `JBProjects` contract.
-        PROJECTS = new JBProjects(address(123), address(0));
+        PROJECTS = new JBProjects(address(123), address(0), address(0));
         // Deploy the `JBOwnable` contract.
         vm.prank(deployer);
         OWNABLE = new MockOwnable(PROJECTS, PERMISSIONS, initialOwner, uint88(0));
