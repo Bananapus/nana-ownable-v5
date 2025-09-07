@@ -27,9 +27,9 @@ contract OwnableTest is Test {
 
     function setUp() public {
         // Deploy the permissions contract.
-        PERMISSIONS = new JBPermissions();
+        PERMISSIONS = new JBPermissions(address(0));
         // Deploy the projects contract.
-        PROJECTS = new JBProjects(address(123), address(0));
+        PROJECTS = new JBProjects(address(123), address(0), address(0));
     }
 
     function testDeployerDoesNotBecomeOwner(address deployer, address owner) public isNotContract(owner) {
@@ -214,6 +214,7 @@ contract OwnableTest is Test {
     {
         // `CreateFor` won't work if the address is a contract that doesn't support `ERC721Receiver`.
         vm.assume(projectOwner != address(0) && callerAddress != projectOwner);
+        vm.assume(requiredPermissionId != 0);
 
         vm.assume(permissionIdsToGrant.length < 5);
 
@@ -228,7 +229,7 @@ contract OwnableTest is Test {
         ownable.setPermissionId(requiredPermissionId);
 
         // Attempt to call the protected method without permission.
-        vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector));
+        vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
         vm.prank(callerAddress);
         ownable.protectedMethod();
 
@@ -236,6 +237,7 @@ contract OwnableTest is Test {
         bool _shouldHavePermission;
         uint8[] memory _permissionIds = new uint8[](permissionIdsToGrant.length);
         for (uint256 i; i < permissionIdsToGrant.length; i++) {
+            vm.assume(permissionIdsToGrant[i] != 0);
             // Check if the permission we need is in the permissions to grant, including if it's ROOT.
             if (permissionIdsToGrant[i] == requiredPermissionId || permissionIdsToGrant[i] == 1) {
                 _shouldHavePermission = true;
@@ -251,7 +253,7 @@ contract OwnableTest is Test {
         );
 
         if (!_shouldHavePermission) {
-            vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector));
+            vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
         }
 
         vm.prank(callerAddress);
@@ -269,7 +271,7 @@ contract OwnableTest is Test {
     {
         // `CreateFor` won't work if the address is a contract that doesn't support `ERC721Receiver`.
         vm.assume(projectOwner != address(0) && callerAddress != projectOwner);
-
+        vm.assume(requiredPermissionId != 0);
         vm.assume(permissionIdsToGrant.length < 5);
 
         // Create a project for the owner.
@@ -282,7 +284,7 @@ contract OwnableTest is Test {
         ownable.setPermission(requiredPermissionId);
 
         // Attempt to call the protected method without permission.
-        vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector));
+        vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
         vm.prank(callerAddress);
         ownable.protectedMethodWithRequirePermission();
 
@@ -290,6 +292,7 @@ contract OwnableTest is Test {
         bool _shouldHavePermission;
         uint8[] memory _permissionIds = new uint8[](permissionIdsToGrant.length);
         for (uint256 i; i < permissionIdsToGrant.length; i++) {
+            vm.assume(permissionIdsToGrant[i] != 0);
             // Check if the permission we need is in the permissions to grant, including if it's ROOT.
             if (permissionIdsToGrant[i] == requiredPermissionId || permissionIdsToGrant[i] == 1) {
                 _shouldHavePermission = true;
@@ -305,7 +308,7 @@ contract OwnableTest is Test {
         );
 
         if (!_shouldHavePermission) {
-            vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector));
+            vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
         }
 
         vm.prank(callerAddress);
