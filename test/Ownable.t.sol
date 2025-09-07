@@ -229,7 +229,15 @@ contract OwnableTest is Test {
         ownable.setPermissionId(requiredPermissionId);
 
         // Attempt to call the protected method without permission.
-        vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                JBPermissioned.JBPermissioned_Unauthorized.selector,
+                projectOwner,
+                callerAddress,
+                _projectId,
+                requiredPermissionId
+            )
+        );
         vm.prank(callerAddress);
         ownable.protectedMethod();
 
@@ -253,7 +261,15 @@ contract OwnableTest is Test {
         );
 
         if (!_shouldHavePermission) {
-            vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
+            vm.expectRevert(
+                abi.encodeWithSelector(
+                    JBPermissioned.JBPermissioned_Unauthorized.selector,
+                    projectOwner,
+                    callerAddress,
+                    _projectId,
+                    requiredPermissionId
+                )
+            );
         }
 
         vm.prank(callerAddress);
@@ -284,7 +300,15 @@ contract OwnableTest is Test {
         ownable.setPermission(requiredPermissionId);
 
         // Attempt to call the protected method without permission.
-        vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                JBPermissioned.JBPermissioned_Unauthorized.selector,
+                projectOwner,
+                callerAddress,
+                _projectId,
+                requiredPermissionId
+            )
+        );
         vm.prank(callerAddress);
         ownable.protectedMethodWithRequirePermission();
 
@@ -308,7 +332,15 @@ contract OwnableTest is Test {
         );
 
         if (!_shouldHavePermission) {
-            vm.expectRevert(abi.encodeWithSelector(JBPermissioned.JBPermissioned_Unauthorized.selector, projectOwner, callerAddress, _projectId, requiredPermissionId));
+            vm.expectRevert(
+                abi.encodeWithSelector(
+                    JBPermissioned.JBPermissioned_Unauthorized.selector,
+                    projectOwner,
+                    callerAddress,
+                    _projectId,
+                    requiredPermissionId
+                )
+            );
         }
 
         vm.prank(callerAddress);
